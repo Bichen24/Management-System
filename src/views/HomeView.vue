@@ -1,9 +1,20 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import { useCounterStore } from '@/stores/counter'
+
+const counterStore = useCounterStore()
+console.log(counterStore.count)
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <div class="homeView">
+        <h2>Homeview</h2>
+    </div>
 </template>
+
+<style lang="scss" scoped>
+div {
+    h2 {
+        color: red;
+    }
+}
+</style>
