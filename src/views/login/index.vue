@@ -1,12 +1,13 @@
 <script setup>
 import SvgIcon from '@/components/svgIcon/index.vue'
 import { ref } from 'vue'
+import { useUserStore } from '@/stores/useUserStore.js'
 const isOpenEye = ref(false)
 const showEye = () => {
     isOpenEye.value = !isOpenEye.value
 }
 const loginData = ref({
-    userName: 'super-admin',
+    username: 'super-admin',
     password: '123456'
 })
 const rules = ref({
@@ -33,6 +34,24 @@ const rules = ref({
         }
     ]
 })
+const loading = ref(false)
+const loginFromRef = ref(null)
+const { userLogin } = useUserStore()
+const login = () => {
+    loginFromRef.value.validate((value) => {
+        if (!value) return
+        loading.value = true
+        userLogin(loginData.value)
+            .then((data) => {
+                console.log(data)
+                loading.value = false
+            })
+            .catch((err) => {
+                console.log(err)
+                loading.value = false
+            })
+    })
+}
 </script>
 
 <template>
@@ -42,14 +61,14 @@ const rules = ref({
                 <h3 class="title">用户登录</h3>
             </div>
 
-            <el-form-item prop="userName">
+            <el-form-item prop="username">
                 <span class="svg-container">
                     <SvgIcon icon="user" color="#889aa4"></SvgIcon>
                 </span>
                 <el-input
-                    v-model="loginData.userName"
+                    v-model="loginData.username"
                     placeholder="username"
-                    name="userName"
+                    name="username"
                     type="text"
                 />
             </el-form-item>
@@ -69,7 +88,13 @@ const rules = ref({
                     <SvgIcon v-show="isOpenEye" icon="eye-open" color="#889aa4"></SvgIcon>
                 </span>
             </el-form-item>
-            <el-button type="primary" style="width: 100%; margin-bottom: 30px">登录</el-button>
+            <el-button
+                @click="login"
+                :loading="loading"
+                type="primary"
+                style="width: 100%; margin-bottom: 30px"
+                >登录</el-button
+            >
         </el-form>
     </div>
 </template>
