@@ -6,3 +6,8 @@ export const login = (data) => {
         data
     })
 }
+export const fetchUserInfo = () => {
+    return request({
+        url: '/sys/profile'
+    })
+}

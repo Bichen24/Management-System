@@ -1,7 +1,8 @@
 <script setup>
 import SvgIcon from '@/components/svgIcon/index.vue'
-import { ref } from 'vue'
 import { useUserStore } from '@/stores/useUserStore.js'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 const isOpenEye = ref(false)
 const showEye = () => {
     isOpenEye.value = !isOpenEye.value
@@ -34,6 +35,7 @@ const rules = ref({
         }
     ]
 })
+const router = useRouter()
 const loading = ref(false)
 const loginFromRef = ref(null)
 const { userLogin } = useUserStore()
@@ -42,9 +44,9 @@ const login = () => {
         if (!value) return
         loading.value = true
         userLogin(loginData.value)
-            .then((data) => {
-                console.log(data)
+            .then(() => {
                 loading.value = false
+                router.go('/')
             })
             .catch((err) => {
                 console.log(err)
