@@ -1,8 +1,11 @@
-<script setup></script>
+<script setup>
+import { RouterView } from 'vue-router'
+</script>
 
 <template>
     <div class="app-main">
         <h2>appMain</h2>
+        <RouterView />
     </div>
 </template>
 

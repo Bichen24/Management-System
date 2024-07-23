@@ -31,7 +31,7 @@ export const useUserStore = defineStore('user', () => {
                 password: md5(password)
             })
                 .then((data) => {
-                    router.push('/layout')
+                    router.push('/')
                     setItem(TOKEN, data.token)
                     setTokenTimestap()
                     resolve(data)
