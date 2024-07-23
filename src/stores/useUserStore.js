@@ -2,9 +2,10 @@ import { defineStore } from 'pinia'
 import { fetchUserInfo, login } from '@/api/sys'
 import { TOKEN } from '@/constant'
 import md5 from 'md5'
-import { getItem, setItem } from '@/utils/storage'
+import { getItem, removeItem, setItem } from '@/utils/storage'
 import { computed, ref } from 'vue'
 import router from '@/router'
+import { reomveTokenTimestap, setTokenTimestap } from '@/utils/loginTime'
 
 export const useUserStore = defineStore('user', () => {
     const userToken = computed(() => {
@@ -12,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
         return token ? token : ''
     })
     let userInfo = ref({})
+
     const getUserInfo = async () => {
         let res = ref(userInfo.value)
         if (JSON.stringify(userInfo.value) === '{}' || userToken.value !== '') {
@@ -31,6 +33,7 @@ export const useUserStore = defineStore('user', () => {
                 .then((data) => {
                     router.push('/layout')
                     setItem(TOKEN, data.token)
+                    setTokenTimestap()
                     resolve(data)
                 })
                 .catch((err) => {
@@ -39,5 +42,17 @@ export const useUserStore = defineStore('user', () => {
         })
     }
 
-    return { userLogin, userToken, getUserInfo, userInfo }
+    function userExit() {
+        return new Promise((resolve) => {
+            userInfo.value = {}
+            removeItem(TOKEN)
+            reomveTokenTimestap()
+            resolve()
+        }).then(() => {
+            console.log(1)
+            router.push('/login')
+        })
+    }
+
+    return { userLogin, userToken, getUserInfo, userInfo, userExit }
 })

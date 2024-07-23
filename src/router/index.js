@@ -1,5 +1,7 @@
+import { TOKEN } from '@/constant'
 import { useUserStore } from '@/stores/useUserStore'
-import { storeToRefs } from 'pinia'
+import { getTokenOut } from '@/utils/loginTime'
+import { getItem } from '@/utils/storage'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
@@ -25,7 +27,10 @@ const router = createRouter({
 const whiteList = ['/login', '/404']
 router.beforeEach((to, from, next) => {
     const userStore = useUserStore()
-    if (userStore.userToken) {
+    if (getItem(TOKEN)) {
+        if (getTokenOut()) {
+            userStore.userExit()
+        }
         if (to.path === '/login') {
             next('/layout')
         } else {

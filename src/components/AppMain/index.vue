@@ -1,9 +1,18 @@
 <script setup></script>
 
 <template>
-    <div class="appMain">
+    <div class="app-main">
         <h2>appMain</h2>
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.app-main {
+    min-height: calc(100vh - 50px);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 61px 20px 20px 20px;
+    box-sizing: border-box;
+}
+</style>
