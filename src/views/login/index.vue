@@ -46,7 +46,7 @@ const login = () => {
         userLogin(loginData.value)
             .then(() => {
                 loading.value = false
-                router.go('/')
+                router.to('/')
             })
             .catch((err) => {
                 console.log(err)

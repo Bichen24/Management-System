@@ -2,9 +2,6 @@
 import Navbar from '@/components/Navbar/index.vue'
 import Sidebar from '@/components/Sidebar/index.vue'
 import AppMain from '@/components/AppMain/index.vue'
-import { useUserStore } from '@/stores/useUserStore'
-import { storeToRefs } from 'pinia'
-const { userInfo } = storeToRefs(useUserStore())
 </script>
 
 <template>
@@ -18,7 +15,6 @@ const { userInfo } = storeToRefs(useUserStore())
             </div>
             <!-- 内容区 -->
             <app-main />
-            <h2>{{ userInfo }}</h2>
         </div>
     </div>
 </template>

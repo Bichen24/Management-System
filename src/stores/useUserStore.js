@@ -15,8 +15,8 @@ export const useUserStore = defineStore('user', () => {
     let userInfo = ref({})
 
     const getUserInfo = async () => {
-        let res = ref(userInfo.value)
-        if (JSON.stringify(userInfo.value) === '{}' || userToken.value !== '') {
+        let res = ref({})
+        if (JSON.stringify(userInfo.value) === '{}' && userToken.value !== '') {
             res.value = await fetchUserInfo()
             userInfo.value = res.value
         }
@@ -31,9 +31,9 @@ export const useUserStore = defineStore('user', () => {
                 password: md5(password)
             })
                 .then((data) => {
-                    router.push('/')
                     setItem(TOKEN, data.token)
                     setTokenTimestap()
+                    router.push('/')
                     resolve(data)
                 })
                 .catch((err) => {
@@ -49,7 +49,6 @@ export const useUserStore = defineStore('user', () => {
             reomveTokenTimestap()
             resolve()
         }).then(() => {
-            console.log(1)
             router.push('/login')
         })
     }

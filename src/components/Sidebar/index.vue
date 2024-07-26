@@ -6,7 +6,6 @@ const router = useRouter()
 // 获取路由
 const allRoutes = router.getRoutes()
 const menuList = clearChildrenRoute(allRoutes)
-console.log(menuList)
 </script>
 
 <template>
