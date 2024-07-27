@@ -2,6 +2,7 @@
 import SvgIcon from '@/components/svgIcon/index.vue'
 import { useUserStore } from '@/stores/useUserStore.js'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 const isOpenEye = ref(false)
 const showEye = () => {
@@ -11,27 +12,32 @@ const loginData = ref({
     username: 'super-admin',
     password: '123456'
 })
+const i18n = useI18n()
 const rules = ref({
     password: [
         {
             requierd: true,
             trigger: 'blur',
             validator: (rule, value, callback) => {
-                if (value.length === 0) {
-                    callback(new Error('密码不能为空'))
-                } else if (value.length < 6) {
-                    callback(new Error('密码不能少于6位'))
+                if (value.length < 6) {
+                    callback(new Error(i18n.t('msg.login.passwordRule')))
                 } else {
                     callback()
                 }
             }
         }
     ],
-    userName: [
+    username: [
         {
             required: true,
             trigger: 'blur',
-            message: '用户名为必填项'
+            validator: (rule, value, callback) => {
+                if (value.length === 0) {
+                    callback(new Error(i18n.t('msg.login.usernameRule')))
+                } else {
+                    callback()
+                }
+            }
         }
     ]
 })
@@ -60,7 +66,7 @@ const login = () => {
     <div class="login-container">
         <el-form class="login-form" ref="loginFromRef" :model="loginData" :rules="rules">
             <div class="title-container">
-                <h3 class="title">用户登录</h3>
+                <h3 class="title">{{ $t('msg.login.title') }}</h3>
             </div>
 
             <el-form-item prop="username">
@@ -95,8 +101,9 @@ const login = () => {
                 :loading="loading"
                 type="primary"
                 style="width: 100%; margin-bottom: 30px"
-                >登录</el-button
+                >{{ $t('msg.login.loginBtn') }}</el-button
             >
+            <div class="tips" v-html="$t('msg.login.desc')"></div>
         </el-form>
     </div>
 </template>
@@ -120,6 +127,10 @@ $cursor: #fff;
         padding: 160px 35px 0;
         margin: 0 auto;
         overflow: hidden;
+        .tips {
+            color: white;
+            font-size: 18px;
+        }
         :deep(.icon) {
             margin-right: 0.25vw;
         }
@@ -138,6 +149,7 @@ $cursor: #fff;
                 width: 100%;
                 height: 100%;
                 border: 0px;
+                appearance: none;
                 -webkit-appearance: none;
                 border-radius: 0px;
                 padding: 12px 5px 12px 15px;

@@ -1,6 +1,7 @@
 <script setup>
 import { useUserStore } from '@/stores/useUserStore'
 import bread from './cpns/bread.vue'
+import languageSelect from './cpns/languageSelect.vue'
 // import hamburger from './cpns/hamburger.vue'
 const userStore = useUserStore()
 const { userExit } = userStore
@@ -10,20 +11,24 @@ const { userExit } = userStore
     <div class="navbar">
         <!-- <hamburger class="hamburger" /> -->
         <bread class="bread" />
-        <el-dropdown class="right-menu">
-            <el-avatar shape="square" :size="50" :src="userStore.userInfo.avatar"></el-avatar>
-            <template #dropdown>
-                <el-dropdown-menu class="user-dropdown">
-                    <router-link to="/">
-                        <el-dropdown-item> 首页 </el-dropdown-item>
-                    </router-link>
-                    <a target="_blank" href="">
-                        <el-dropdown-item>课程主页</el-dropdown-item>
-                    </a>
-                    <el-dropdown-item divided @click="userExit()"> 退出登录</el-dropdown-item>
-                </el-dropdown-menu>
-            </template>
-        </el-dropdown>
+        <div class="right-menu">
+            <languageSelect class="right-menu-item hover-effect" />
+
+            <el-dropdown>
+                <el-avatar shape="square" :size="50" :src="userStore.userInfo.avatar"></el-avatar>
+                <template #dropdown>
+                    <el-dropdown-menu class="user-dropdown">
+                        <router-link to="/">
+                            <el-dropdown-item> 首页 </el-dropdown-item>
+                        </router-link>
+                        <a target="_blank" href="">
+                            <el-dropdown-item>课程主页</el-dropdown-item>
+                        </a>
+                        <el-dropdown-item divided @click="userExit()"> 退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -56,7 +61,16 @@ const { userExit } = userStore
         align-items: center;
         float: right;
         padding-right: 16px;
-
+        :deep(.right-menu-item) {
+            display: inline-block;
+            padding: 0 18px 0 0;
+            font-size: 24px;
+            color: #5a5e66;
+            vertical-align: text-bottom;
+        }
+        &.hover-effect {
+            cursor: pointer;
+        }
         :deep(.avatar-container) {
             cursor: pointer;
             .avatar-wrapper {

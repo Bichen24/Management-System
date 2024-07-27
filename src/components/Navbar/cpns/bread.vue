@@ -1,6 +1,7 @@
 <script setup>
 import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { generateTitle } from '@/utils/i18n.js'
 
 const route = useRoute()
 const breadcrumb = ref([])
@@ -10,8 +11,6 @@ watch(
         breadcrumb.value = route.matched.filter((item) => {
             if (item.meta && item.meta.title) return true
         })
-        console.log(breadcrumb.value)
-        console.log(route.matched)
     },
     {
         immediate: true
@@ -26,7 +25,7 @@ watch(
             :key="item.path"
             :to="{ path: index === breadcrumb.length ? '' : item.path }"
         >
-            {{ item.meta.title }}
+            {{ generateTitle(item.meta.title) }}
         </el-breadcrumb-item>
     </el-breadcrumb>
 </template>

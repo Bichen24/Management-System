@@ -6,7 +6,7 @@ const privateRoutes = [
         redirect: '/user/manage',
         component: layout,
         meta: {
-            title: '用户',
+            title: 'user',
             icon: 'personnel'
         },
         children: [
@@ -14,7 +14,7 @@ const privateRoutes = [
                 path: '/user/manage',
                 component: () => import('@/views/user-manage/index.vue'),
                 meta: {
-                    title: '用户管理',
+                    title: 'userManage',
                     icon: 'personnel-manage'
                 }
             },
@@ -22,7 +22,7 @@ const privateRoutes = [
                 path: '/user/role',
                 component: () => import('@/views/role-list/index.vue'),
                 meta: {
-                    title: '角色管理',
+                    title: 'roleList',
                     icon: 'role'
                 }
             },
@@ -30,7 +30,7 @@ const privateRoutes = [
                 path: '/user/permission',
                 component: () => import('@/views/permission-list/index.vue'),
                 meta: {
-                    title: '用户权限',
+                    title: 'permissionList',
                     icon: 'permission'
                 }
             },
@@ -39,7 +39,7 @@ const privateRoutes = [
                 name: 'userInfo',
                 component: () => import('@/views/user-info/index.vue'),
                 meta: {
-                    title: '用户信息'
+                    title: 'userInfo'
                 }
             },
             {
@@ -57,7 +57,7 @@ const privateRoutes = [
         redirect: '/article/ranking',
         component: layout,
         meta: {
-            title: '文章',
+            title: 'article',
             icon: 'article'
         },
         children: [
@@ -65,7 +65,7 @@ const privateRoutes = [
                 path: '/article/ranking',
                 component: () => import('@/views/article-ranking/index.vue'),
                 meta: {
-                    title: '文章排名',
+                    title: 'articleRanking',
                     icon: 'article-ranking'
                 }
             },
@@ -73,14 +73,14 @@ const privateRoutes = [
                 path: '/article/:id',
                 component: () => import('@/views/article-detail/index.vue'),
                 meta: {
-                    title: '文章详情'
+                    title: 'articleDetail'
                 }
             },
             {
                 path: '/article/create',
                 component: () => import('@/views/article-create/index.vue'),
                 meta: {
-                    title: '创建文章',
+                    title: 'articleCreate',
                     icon: 'article-create'
                 }
             },
@@ -88,7 +88,7 @@ const privateRoutes = [
                 path: '/article/editor/:id',
                 component: () => import('@/views/article-create/index.vue'),
                 meta: {
-                    title: '文章编辑'
+                    title: 'articleEditor'
                 }
             }
         ]
@@ -112,7 +112,7 @@ const publicRoutes = [
                 name: 'profile',
                 component: () => import('@/views/profile/index.vue'),
                 meta: {
-                    title: '个人中心',
+                    title: 'profile',
                     icon: 'user'
                 }
             }

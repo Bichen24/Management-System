@@ -21,6 +21,7 @@ const emits = defineEmits(['getActiveIndex'])
 const itemClick = (index) => {
     emits('getActiveIndex', index)
 }
+import { generateTitle } from '@/utils/i18n'
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const itemClick = (index) => {
     <el-sub-menu v-if="hasChildren" :index="index">
         <template #title>
             <svg-icon :icon="item.meta.icon"></svg-icon>
-            {{ item.meta.title }}
+            {{ generateTitle(item.meta.title) }}
         </template>
         <el-menu-item
             v-for="(j, cindex) in item.children"
@@ -39,7 +40,7 @@ const itemClick = (index) => {
         >
             <template #title>
                 <svg-icon class="icon" :icon="j.meta.icon"></svg-icon>
-                {{ j.meta.title }}
+                {{ generateTitle(j.meta.title) }}
             </template>
         </el-menu-item>
     </el-sub-menu>
@@ -47,7 +48,7 @@ const itemClick = (index) => {
     <el-menu-item v-else :index="index" :route="item" @click="itemClick(index)">
         <template #title>
             <svg-icon :icon="item.meta.icon"></svg-icon>
-            {{ item.meta.title }}
+            {{ generateTitle(item.meta.title) }}
         </template>
     </el-menu-item>
 </template>
