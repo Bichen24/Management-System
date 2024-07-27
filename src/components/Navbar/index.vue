@@ -1,5 +1,6 @@
 <script setup>
 import { useUserStore } from '@/stores/useUserStore'
+import bread from './cpns/bread.vue'
 // import hamburger from './cpns/hamburger.vue'
 const userStore = useUserStore()
 const { userExit } = userStore
@@ -8,6 +9,7 @@ const { userExit } = userStore
 <template>
     <div class="navbar">
         <!-- <hamburger class="hamburger" /> -->
+        <bread class="bread" />
         <el-dropdown class="right-menu">
             <el-avatar shape="square" :size="50" :src="userStore.userInfo.avatar"></el-avatar>
             <template #dropdown>
@@ -31,6 +33,12 @@ const { userExit } = userStore
     position: relative;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    .bread {
+        float: left;
+        height: 100%;
+        line-height: 50px;
+        padding: 0 10px;
+    }
     .hamburger {
         line-height: 46px;
         height: 100%;
