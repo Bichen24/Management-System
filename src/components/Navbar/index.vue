@@ -3,16 +3,18 @@ import { useUserStore } from '@/stores/useUserStore'
 import bread from './cpns/bread.vue'
 import languageSelect from './cpns/languageSelect.vue'
 import themeSelect from './cpns/Theme/themeSelect.vue'
-// import hamburger from './cpns/hamburger.vue'
+import Screenfull from './cpns/Screenfull.vue'
+import HanderSearch from './cpns/HanderSearch.vue'
 const userStore = useUserStore()
 const { userExit } = userStore
 </script>
 
 <template>
     <div class="navbar">
-        <!-- <hamburger class="hamburger" /> -->
         <bread class="bread" />
         <div class="right-menu">
+            <HanderSearch class="right-menu-item hover-effect" />
+            <Screenfull class="right-menu-item hover-effect" />
             <themeSelect class="right-menu-item hover-effect" />
             <languageSelect class="right-menu-item hover-effect" />
             <el-dropdown>

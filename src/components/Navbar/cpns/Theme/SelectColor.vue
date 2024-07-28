@@ -59,6 +59,8 @@ const closed = () => {
  * 3. 关闭 dialog
  */
 const comfirm = async () => {
+    predefineColors.pop()
+    predefineColors.push(mColor.value)
     changeTheme(mColor.value)
     // 3. 关闭 dialog
     closed()

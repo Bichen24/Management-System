@@ -2,6 +2,7 @@
 import Navbar from '@/components/Navbar/index.vue'
 import Sidebar from '@/components/Sidebar/index.vue'
 import AppMain from '@/components/AppMain/index.vue'
+import tagViews from '@/components/Navbar/cpns/tagViews/index.vue'
 </script>
 
 <template>
@@ -12,9 +13,10 @@ import AppMain from '@/components/AppMain/index.vue'
             <div class="fixed-header">
                 <!-- 顶部的 navbar -->
                 <navbar />
+                <tagViews />
             </div>
             <!-- 内容区 -->
-            <app-main />
+            <app-main class="main" />
         </div>
     </div>
 </template>
@@ -29,7 +31,10 @@ import AppMain from '@/components/AppMain/index.vue'
     height: 100%;
     width: 100%;
 }
-
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
 .fixed-header {
     position: fixed;
     top: 0;

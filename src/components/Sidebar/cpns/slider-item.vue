@@ -1,5 +1,7 @@
 <script setup>
 import { computed } from 'vue'
+import { generateTitle } from '@/utils/i18n'
+
 const props = defineProps({
     data: {
         type: Object,
@@ -20,7 +22,6 @@ const emits = defineEmits(['getActiveIndex'])
 const itemClick = (index) => {
     emits('getActiveIndex', index)
 }
-import { generateTitle } from '@/utils/i18n'
 </script>
 
 <template>

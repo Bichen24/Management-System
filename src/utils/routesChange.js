@@ -6,7 +6,7 @@ export const clearChildrenRoute = (Routes) => {
 }
 
 //获取所有子路由
-const getChildrenPaths = (Routes) => {
+export const getChildrenPaths = (Routes) => {
     const childrenRoutes = []
     Routes.forEach((item) => {
         if (item.children.length > 0) {
@@ -19,7 +19,23 @@ const getChildrenPaths = (Routes) => {
     })
     return childrenRoutes
 }
-
+//获取所有子路由及title
+export const getChildrenRouteSearch = (Routes) => {
+    const childrenRoutes = []
+    Routes.forEach((item) => {
+        if (item.children.length > 0) {
+            childrenRoutes.push(
+                ...item.children.map((citem) => {
+                    return {
+                        path: citem.path,
+                        title: citem.meta.title
+                    }
+                })
+            )
+        }
+    })
+    return childrenRoutes
+}
 //去除所有重复子路由
 const removeSame = (Routes, childrenPaths) => {
     const res = Routes.filter((item) => {
