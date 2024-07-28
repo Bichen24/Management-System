@@ -18,9 +18,9 @@ const activeIndex = computed(() => getIndex())
     <el-menu
         :uniqueOpened="true"
         :default-active="activeIndex"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
+        active-text-color="#000"
+        text-color="var(--text-color)"
+        background-color="var(--primary-color)"
         router="true"
     >
         <slider-item

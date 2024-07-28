@@ -3,13 +3,11 @@ import { useRouter } from 'vue-router'
 import { clearChildrenRoute } from '@/utils/routesChange.js'
 import slider from './cpns/slider.vue'
 import { useUserStore } from '@/stores/useUserStore'
-import { ref } from 'vue'
 const router = useRouter()
 // 获取路由
 const allRoutes = router.getRoutes()
 const menuList = clearChildrenRoute(allRoutes)
 const userStore = useUserStore()
-const color = ref('red')
 </script>
 
 <template>
@@ -27,14 +25,19 @@ const color = ref('red')
 </template>
 
 <style lang="scss" scoped>
+.slidebar {
+    width: 100%;
+    background-color: var(--primary-color);
+}
 .slider-header {
     display: flex;
     height: 70px;
     justify-content: center;
     align-items: center;
+    background-color: var(--primary-color);
     .slider-username {
-        color: v-bind(color);
         margin-left: 5px;
+        color: #fff;
     }
 }
 </style>

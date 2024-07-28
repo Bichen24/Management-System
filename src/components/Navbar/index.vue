@@ -2,6 +2,7 @@
 import { useUserStore } from '@/stores/useUserStore'
 import bread from './cpns/bread.vue'
 import languageSelect from './cpns/languageSelect.vue'
+import themeSelect from './cpns/Theme/themeSelect.vue'
 // import hamburger from './cpns/hamburger.vue'
 const userStore = useUserStore()
 const { userExit } = userStore
@@ -12,8 +13,8 @@ const { userExit } = userStore
         <!-- <hamburger class="hamburger" /> -->
         <bread class="bread" />
         <div class="right-menu">
+            <themeSelect class="right-menu-item hover-effect" />
             <languageSelect class="right-menu-item hover-effect" />
-
             <el-dropdown>
                 <el-avatar shape="square" :size="50" :src="userStore.userInfo.avatar"></el-avatar>
                 <template #dropdown>
@@ -61,6 +62,11 @@ const { userExit } = userStore
         align-items: center;
         float: right;
         padding-right: 16px;
+        .themeSelect {
+            width: 100px;
+            background-color: #5a5e66;
+            margin-right: 10px !important;
+        }
         :deep(.right-menu-item) {
             display: inline-block;
             padding: 0 18px 0 0;

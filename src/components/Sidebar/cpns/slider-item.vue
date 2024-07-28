@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue'
-
 const props = defineProps({
     data: {
         type: Object,
@@ -57,6 +56,16 @@ import { generateTitle } from '@/utils/i18n'
 :deep(.icon) {
     transform: translateY(-2px);
     margin-right: 10px;
-    fill: #fff !important;
+    fill: var(--text-color);
+}
+:deep(.is-active .icon) {
+    fill: #000;
+}
+.is-active[class*='el-menu-item'] .icon {
+    fill: #000;
+}
+:deep(.el-sub-menu__title:hover),
+.el-menu-item:hover {
+    background-color: rgba($color: #000000, $alpha: 0.2) !important;
 }
 </style>
