@@ -4,8 +4,13 @@ import { RouterView } from 'vue-router'
 
 <template>
     <div class="app-main">
-        <h2>appMain</h2>
-        <RouterView />
+        <router-view v-slot="{ Component, route }">
+            <transition name="fade-transform" mode="out-in">
+                <keep-alive>
+                    <component :is="Component" :key="route.path" />
+                </keep-alive>
+            </transition>
+        </router-view>
     </div>
 </template>
 
@@ -16,5 +21,20 @@ import { RouterView } from 'vue-router'
     overflow: hidden;
     padding: 100px 20px 20px 20px;
     box-sizing: border-box;
+}
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all 0.3s;
+}
+
+.fade-transform-enter-from {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
 }
 </style>
