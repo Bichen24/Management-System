@@ -11,7 +11,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-    <div class="slidebar">
+    <div class="slidebar" id="guide-sidebar">
         <div class="slider-header">
             <el-avatar
                 class="slider-avatar"

@@ -19,7 +19,7 @@ watch(
 </script>
 
 <template>
-    <el-breadcrumb class="breadcrumb" separator="/">
+    <el-breadcrumb class="breadcrumb" id="guide-breadcrumb" separator="/">
         <el-breadcrumb-item
             v-for="(item, index) in breadcrumb"
             :key="item.path"

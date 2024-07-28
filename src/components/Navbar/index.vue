@@ -5,6 +5,7 @@ import languageSelect from './cpns/languageSelect.vue'
 import themeSelect from './cpns/Theme/themeSelect.vue'
 import Screenfull from './cpns/Screenfull.vue'
 import HanderSearch from './cpns/HanderSearch.vue'
+import guide from './cpns/guider/index.vue'
 const userStore = useUserStore()
 const { userExit } = userStore
 </script>
@@ -13,6 +14,7 @@ const { userExit } = userStore
     <div class="navbar">
         <bread class="bread" />
         <div class="right-menu">
+            <guide class="right-menu-item hover-effect" />
             <HanderSearch class="right-menu-item hover-effect" />
             <Screenfull class="right-menu-item hover-effect" />
             <themeSelect class="right-menu-item hover-effect" />
