@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/useUserStore'
+import { useAppStore } from '@/stores/appSotre'
 
 const request = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
@@ -8,7 +9,9 @@ const request = axios.create({
 })
 request.interceptors.request.use((config) => {
     const userStore = useUserStore()
+    const appSotre = useAppStore()
     config.headers.icode = 'helloqianduanxunlianying'
+    config.headers['Accept-Language'] = appSotre.Language
     if (userStore.userToken) {
         config.headers.Authorization = `Bearer ${userStore.userToken}`
     }
@@ -23,7 +26,6 @@ request.interceptors.response.use(
             ElMessage.error(message)
             return Promise.reject(new Error(message))
         }
-        
     },
     (err) => {
         // 登陆超时了

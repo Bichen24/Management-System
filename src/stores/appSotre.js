@@ -7,6 +7,7 @@ export const useAppStore = defineStore('app', () => {
     const Language = ref(getItem(Lang) || 'zh')
     const tagsViewList = ref(getItem(TAGS_VIEW) || [])
     const whiteTagLists = ref(['/login', '/404', '/401'])
+
     const addTagsView = (tag) => {
         if (
             !tagsViewList.value.find((item) => {
@@ -21,5 +22,12 @@ export const useAppStore = defineStore('app', () => {
         tagsViewList.value.splice(index, 1)
         setItem(TAGS_VIEW, tagsViewList.value)
     }
-    return { openIcon, Language, tagsViewList, addTagsView, whiteTagLists, removeTagView }
+    return {
+        openIcon,
+        Language,
+        tagsViewList,
+        addTagsView,
+        whiteTagLists,
+        removeTagView
+    }
 })

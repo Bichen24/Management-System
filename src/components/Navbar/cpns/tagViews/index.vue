@@ -11,7 +11,7 @@
             :to="{ path: tag.fullPath }"
         >
             {{ generateTitle(tag.meta.title) }}
-            <i v-show="!isActive(tag)" @click.prevent.stop="onCloseClick(index)">x </i>
+            <b v-show="!isActive(tag)" @click.prevent.stop="onCloseClick(index)">×</b>
         </router-link>
     </div>
 </template>
