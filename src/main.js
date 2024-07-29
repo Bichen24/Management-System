@@ -10,12 +10,13 @@ import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
 import { useAppStore } from './stores/appSotre'
-
+// filter
+import installFilter from '@/filters'
 //svgIcon
 import 'virtual:svg-icons-register'
-
 const pinia = createPinia()
 const app = createApp(App)
+installFilter(app)
 app.use(pinia)
 app.use(router)
 app.use(i18n)

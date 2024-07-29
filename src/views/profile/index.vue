@@ -37,11 +37,14 @@ const getFeatureData = async () => {
     const res = await fetchFeatureData()
     featureData.value = res
 }
-getFeatureData()
+
 watch(
     () => appStore.Language,
-    (newVal) => {
-        getFeatureData(newVal)
+    () => {
+        getFeatureData()
+    },
+    {
+        immediate: true
     }
 )
 </script>
