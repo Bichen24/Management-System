@@ -2,8 +2,10 @@
     <div class="user-manage-container">
         <el-card class="header">
             <div>
-                <el-button type="primary"> {{ $t('msg.excel.importExcel') }}</el-button>
-                <el-button type="success">
+                <el-button type="primary" @click="onImportExcelClick">
+                    {{ $t('msg.excel.importExcel') }}</el-button
+                >
+                <el-button @click="onExportExcelClick" type="success">
                     {{ $t('msg.excel.exportExcel') }}
                 </el-button>
             </div>
@@ -40,12 +42,12 @@
                     </template>
                 </el-table-column>
                 <el-table-column :label="$t('msg.excel.action')" fixed="right" width="260">
-                    <template #default>
+                    <template #default="{ row }">
                         <el-button type="primary" size="mini">{{ $t('msg.excel.show') }}</el-button>
                         <el-button type="info" size="mini">
                             {{ $t('msg.excel.showRole') }}
                         </el-button>
-                        <el-button type="danger" size="mini">
+                        <el-button type="danger" @click="onRemoveClick(row)" size="mini">
                             {{ $t('msg.excel.remove') }}
                         </el-button>
                     </template>
@@ -61,13 +63,17 @@
                 @current-change="handleCurrentChange"
             />
         </el-card>
+        <ExportToExcel v-model="modelValue" />
     </div>
 </template>
 
 <script setup>
-import { fetchUserManageData } from '@/api/user-manage'
+import { deleteUser, fetchUserManageData } from '@/api/user-manage'
 import { watchLanguage } from '@/utils/i18n'
-import { ref } from 'vue'
+import { onActivated, ref } from 'vue'
+import ExportToExcel from './cpns/ExportExcel.vue'
+// import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 const userManage = ref({})
 const total = ref(0)
 const page = ref(1)
@@ -81,12 +87,14 @@ const getUserManageData = async () => {
     total.value = res.total
 }
 watchLanguage(getUserManageData)
+onActivated(() => {
+    getUserManageData()
+})
 // 分页相关
 /**
  * size 改变触发
  */
 const handleSizeChange = (currentSize) => {
-    console.log(currentSize)
     size.value = currentSize
     getUserManageData()
 }
@@ -97,6 +105,25 @@ const handleSizeChange = (currentSize) => {
 const handleCurrentChange = (currentPage) => {
     page.value = currentPage
     getUserManageData()
+}
+
+//import点击
+const router = useRouter()
+const onImportExcelClick = () => {
+    router.push('/user/import')
+}
+// const i18n = useI18n()
+//删除员工
+const onRemoveClick = async (row) => {
+    console.log(row)
+    await deleteUser(row._id)
+    // 重新渲染数据
+    getUserManageData()
+}
+//导出
+const modelValue = ref(false)
+const onExportExcelClick = () => {
+    modelValue.value = true
 }
 </script>
 

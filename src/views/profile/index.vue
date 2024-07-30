@@ -27,10 +27,9 @@ import ProjectCard from './cpns/ProjectCard/index.vue'
 import Feature from './cpns/feature/index.vue'
 import Author from './cpns/author/index.vue'
 import { fetchFeatureData } from '@/api/profile'
-import { ref, watch } from 'vue'
-import { useAppStore } from '@/stores/appSotre'
+import { ref } from 'vue'
+import { watchLanguage } from '@/utils/i18n'
 const activeName = ref('feature')
-const appStore = useAppStore()
 const featureData = ref([])
 
 const getFeatureData = async () => {
@@ -38,15 +37,7 @@ const getFeatureData = async () => {
     featureData.value = res
 }
 
-watch(
-    () => appStore.Language,
-    () => {
-        getFeatureData()
-    },
-    {
-        immediate: true
-    }
-)
+watchLanguage(getFeatureData)
 </script>
 
 <style lang="scss" scoped>
