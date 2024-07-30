@@ -26,17 +26,17 @@
 import ProjectCard from './cpns/ProjectCard/index.vue'
 import Feature from './cpns/feature/index.vue'
 import Author from './cpns/author/index.vue'
-// import { fetchFeatureData } from '@/api/profile'
+import { fetchFeatureData } from '@/api/profile'
 import { ref } from 'vue'
-// import { watchLanguage } from '@/utils/i18n'
+import { watchLanguage } from '@/utils/i18n'
 const activeName = ref('feature')
 const featureData = ref([])
 
-// const getFeatureData = async () => {
-//     const res = await fetchFeatureData()
-//     featureData.value = res
-// }
-// watchLanguage(getFeatureData)
+const getFeatureData = async () => {
+    const res = await fetchFeatureData()
+    featureData.value = res
+}
+watchLanguage(getFeatureData)
 </script>
 
 <style lang="scss" scoped>

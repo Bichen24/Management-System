@@ -2,7 +2,8 @@ export const clearChildrenRoute = (Routes) => {
     const childrenPaths = getChildrenPaths(Routes)
     const resRoutes = removeSame(Routes, childrenPaths)
     const menuList = getMenuList(resRoutes)
-    return menuList
+    const res = mergeSameParentRoute(menuList)
+    return res
 }
 
 //获取所有子路由
@@ -70,6 +71,25 @@ const removeChildrenList = (Routes) => {
         if (item.meta.title && item.meta.icon) {
             res.push(Routes[index])
             return
+        }
+    })
+    return res
+}
+
+// 相同父路由合并
+const mergeSameParentRoute = (Routes) => {
+    const res = []
+    Routes.forEach((item) => {
+        let index = 0
+        if (
+            !res.find((j, i) => {
+                index = i
+                return j.path === item.path
+            })
+        ) {
+            res.push(item)
+        } else {
+            res[index].children.push(...item.children)
         }
     })
     return res

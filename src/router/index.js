@@ -1,102 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import layout from '@/views/layout/index.vue'
-const privateRoutes = [
-    {
-        path: '/user',
-        redirect: '/user/manage',
-        component: layout,
-        meta: {
-            title: 'user',
-            icon: 'personnel'
-        },
-        children: [
-            {
-                path: '/user/manage',
-                component: () => import('@/views/user-manage/index.vue'),
-                meta: {
-                    title: 'userManage',
-                    icon: 'personnel-manage'
-                }
-            },
-            {
-                path: '/user/role',
-                component: () => import('@/views/role-list/index.vue'),
-                meta: {
-                    title: 'roleList',
-                    icon: 'role'
-                }
-            },
-            {
-                path: '/user/permission',
-                component: () => import('@/views/permission-list/index.vue'),
-                meta: {
-                    title: 'permissionList',
-                    icon: 'permission'
-                }
-            },
-            {
-                path: '/user/info/:id',
-                name: 'userInfo',
-                props: true,
-                component: () => import('@/views/user-info/index.vue'),
-                meta: {
-                    title: 'userInfo'
-                }
-            },
-            {
-                path: '/user/import',
-                name: 'import',
-                component: () => import('@/views/import/index.vue'),
-                meta: {
-                    title: 'excelImport'
-                }
-            }
-        ]
-    },
-    {
-        path: '/article',
-        redirect: '/article/ranking',
-        component: layout,
-        meta: {
-            title: 'article',
-            icon: 'article'
-        },
-        children: [
-            {
-                path: '/article/ranking',
-                component: () => import('@/views/article-ranking/index.vue'),
-                meta: {
-                    title: 'articleRanking',
-                    icon: 'article-ranking'
-                }
-            },
-            {
-                path: '/article/:id',
-                component: () => import('@/views/article-detail/index.vue'),
-                meta: {
-                    title: 'articleDetail'
-                }
-            },
-            {
-                path: '/article/create',
-                component: () => import('@/views/article-create/index.vue'),
-                meta: {
-                    title: 'articleCreate',
-                    icon: 'article-create'
-                }
-            },
-            {
-                path: '/article/editor/:id',
-                component: () => import('@/views/article-create/index.vue'),
-                meta: {
-                    title: 'articleEditor'
-                }
-            }
-        ]
-    }
+
+import ArticleCreaterRouter from './modules/ArticleCreate'
+import ArticleRouter from './modules/Article'
+import PermissionListRouter from './modules/PermissionList'
+import RoleListRouter from './modules/RoleList'
+import UserManageRouter from './modules/userManage'
+
+export const privateRoutes = [
+    RoleListRouter,
+    UserManageRouter,
+    PermissionListRouter,
+    ArticleCreaterRouter,
+    ArticleRouter
 ]
 // 公共功能
-const publicRoutes = [
+export const publicRoutes = [
     {
         path: '/login',
         name: 'login',
@@ -132,7 +51,7 @@ const publicRoutes = [
 ]
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
-    routes: [...publicRoutes, ...privateRoutes]
+    routes: [...publicRoutes]
 })
 
 export default router
@@ -141,11 +60,14 @@ import { TOKEN } from '@/constant'
 import { useUserStore } from '@/stores/useUserStore'
 import { getTokenOut } from '@/utils/loginTime'
 import { getItem } from '@/utils/storage'
+import { usePermissionStore } from '@/stores/permission.js'
+import { ref } from 'vue'
 // 白名单
 const whiteList = ['/login', '/404', '/401']
 // 路由跳转
 router.beforeEach((to, from, next) => {
     const userStore = useUserStore()
+    const permissionStore = usePermissionStore()
     if (getItem(TOKEN)) {
         if (getTokenOut()) {
             userStore.userExit()
@@ -154,9 +76,20 @@ router.beforeEach((to, from, next) => {
             next('/')
         } else {
             if (JSON.stringify(userStore.userInfo) === '{}') {
-                userStore.getUserInfo()
+                const res = userStore.getUserInfo()
+                const { filterRoutes } = permissionStore
+                let permission = ref([])
+                res.then((data) => {
+                    permission.value = data.permission
+                    const filterRoute = filterRoutes(permission.value.menus)
+                    filterRoute.forEach((item) => {
+                        router.addRoute(item)
+                    })
+                    return next(to.path)
+                })
+            } else {
+                next()
             }
-            next()
         }
     } else {
         if (whiteList.includes(to.path)) {

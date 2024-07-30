@@ -2,7 +2,7 @@
     <div class="user-manage-container">
         <el-card class="header">
             <div>
-                <el-button type="primary" @click="onImportExcelClick">
+                <el-button type="primary" @click="onImportExcelClick" v-permission="['importUser']">
                     {{ $t('msg.excel.importExcel') }}</el-button
                 >
                 <el-button @click="onExportExcelClick" type="success">
@@ -27,12 +27,12 @@
                 <el-table-column :label="$t('msg.excel.role')">
                     <template #default="{ row }">
                         <div v-if="row.role && row.role.length > 0">
-                            <el-tag v-for="item in row.role" :key="item.id" size="mini">
+                            <el-tag v-for="item in row.role" :key="item.id" size="small">
                                 {{ item.title }}
                             </el-tag>
                         </div>
                         <div v-else>
-                            <el-tag size="mini">{{ $t('msg.excel.defaultRole') }}</el-tag>
+                            <el-tag size="small">{{ $t('msg.excel.defaultRole') }}</el-tag>
                         </div>
                     </template>
                 </el-table-column>
@@ -43,13 +43,23 @@
                 </el-table-column>
                 <el-table-column :label="$t('msg.excel.action')" fixed="right" width="260">
                     <template #default="{ row }">
-                        <el-button type="primary" size="mini" @click="onShow(row._id)">{{
+                        <el-button type="primary" size="small" @click="onShow(row._id)">{{
                             $t('msg.excel.show')
                         }}</el-button>
-                        <el-button type="info" size="mini" @click="roleClick(row._id)">
+                        <el-button
+                            type="info"
+                            size="small"
+                            @click="roleClick(row._id)"
+                            v-permission="['distributeRole']"
+                        >
                             {{ $t('msg.excel.showRole') }}
                         </el-button>
-                        <el-button type="danger" @click="onRemoveClick(row)" size="mini">
+                        <el-button
+                            type="danger"
+                            @click="onRemoveClick(row)"
+                            size="small"
+                            v-permission="['removeUser']"
+                        >
                             {{ $t('msg.excel.remove') }}
                         </el-button>
                     </template>

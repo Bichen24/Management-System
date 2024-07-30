@@ -3,15 +3,12 @@ import { fetchUserInfo, login } from '@/api/sys'
 import { TOKEN } from '@/constant'
 import md5 from 'md5'
 import { clearItem, getItem, removeItem, setItem } from '@/utils/storage'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import router from '@/router'
 import { reomveTokenTimestap, setTokenTimestap } from '@/utils/loginTime'
 
 export const useUserStore = defineStore('user', () => {
-    const userToken = computed(() => {
-        const token = getItem(TOKEN)
-        return token ? token : ''
-    })
+    const userToken = ref(getItem(TOKEN) || '')
     let userInfo = ref({})
 
     const getUserInfo = async () => {
@@ -31,6 +28,7 @@ export const useUserStore = defineStore('user', () => {
                 password: md5(password)
             })
                 .then((data) => {
+                    userToken.value = data.token
                     setItem(TOKEN, data.token)
                     setTokenTimestap()
                     resolve(data)
@@ -43,11 +41,19 @@ export const useUserStore = defineStore('user', () => {
 
     function userExit() {
         return new Promise((resolve) => {
+            if (userInfo.value && userInfo.value.permission && userInfo.value.permission.menus) {
+                const menus = userInfo.value.permission.menus
+                menus.forEach((menu) => {
+                    router.removeRoute(menu)
+                })
+                console.log(router.getRoutes())
+            }
             userInfo.value = {}
             removeItem(TOKEN)
             removeItem('tagsView')
             reomveTokenTimestap()
             clearItem()
+
             resolve()
         }).then(() => {
             router.push('/login')

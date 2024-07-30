@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { generateTitle } from '@/utils/i18n'
 
 const props = defineProps({
@@ -8,36 +8,24 @@ const props = defineProps({
         required: true
     }
 })
-let { item, index } = props.data
-index = index + 1
+const route = ref(props.data)
 const hasChildren = computed(() => {
-    if (JSON.stringify(item.meta) === '{}' && item.redirect) {
-        item = item.children[0]
+    if (props.data && JSON.stringify(props.data.meta) === '{}' && props.data.redirect) {
+        route.value = props.data.children[0]
         return false
     }
-    return props.data.item.children.length > 1
+    return props.data.children.length > 0
 })
-
-const emits = defineEmits(['getActiveIndex'])
-const itemClick = (index) => {
-    emits('getActiveIndex', index)
-}
 </script>
 
 <template>
     <!-- 子集 menu 菜单 -->
-    <el-sub-menu v-if="hasChildren" :index="index">
+    <el-sub-menu v-if="hasChildren" :index="route.path">
         <template #title>
-            <svg-icon :icon="item.meta.icon"></svg-icon>
-            {{ generateTitle(item.meta.title) }}
+            <svg-icon :icon="route.meta.icon"></svg-icon>
+            {{ generateTitle(route.meta.title) }}
         </template>
-        <el-menu-item
-            v-for="(j, cindex) in item.children"
-            :index="index + '-' + cindex"
-            :key="j.path"
-            :route="j"
-            @click="itemClick(index + '-' + cindex)"
-        >
+        <el-menu-item v-for="j in route.children" :index="j.path" :key="j.path">
             <template #title>
                 <svg-icon class="icon" :icon="j.meta.icon"></svg-icon>
                 {{ generateTitle(j.meta.title) }}
@@ -45,10 +33,10 @@ const itemClick = (index) => {
         </el-menu-item>
     </el-sub-menu>
     <!-- 具体菜单项 -->
-    <el-menu-item v-else :index="index" :route="item" @click="itemClick(index)">
+    <el-menu-item v-else :index="route.path" :route="route">
         <template #title>
-            <svg-icon :icon="item.meta.icon"></svg-icon>
-            {{ generateTitle(item.meta.title) }}
+            <svg-icon :icon="route.meta.icon"></svg-icon>
+            {{ generateTitle(route.meta.title) }}
         </template>
     </el-menu-item>
 </template>

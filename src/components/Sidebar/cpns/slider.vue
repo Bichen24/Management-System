@@ -1,16 +1,14 @@
 <script setup>
 import sliderItem from './slider-item.vue'
-import { computed } from 'vue'
+import { ref } from 'vue'
 const props = defineProps({
     data: {
         type: Array,
         required: true
     }
 })
-const getIndex = (index) => {
-    return index
-}
-const activeIndex = computed(() => getIndex())
+const activeIndex = ref('/profile')
+console.log(props.data)
 </script>
 
 <template>
@@ -21,14 +19,9 @@ const activeIndex = computed(() => getIndex())
         active-text-color="#000"
         text-color="var(--text-color)"
         background-color="var(--primary-color)"
-        router="true"
+        :router="true"
     >
-        <slider-item
-            v-for="(item, index) in props.data"
-            :key="item.path"
-            :data="{ item, index }"
-            @get-active-index="getIndex"
-        ></slider-item>
+        <slider-item v-for="item in data" :key="item.path" :data="item"></slider-item>
     </el-menu>
 </template>
 

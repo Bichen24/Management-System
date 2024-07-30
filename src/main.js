@@ -12,6 +12,7 @@ import en from 'element-plus/es/locale/lang/en'
 import { useAppStore } from './stores/appSotre'
 // filter
 import installFilter from '@/filters'
+import installDirectives from '@/directives/index.js'
 //svgIcon
 import 'virtual:svg-icons-register'
 //局部打印
@@ -23,6 +24,7 @@ app.use(pinia)
 app.use(router)
 app.use(i18n)
 app.use(print)
+installDirectives(app)
 const appStore = useAppStore()
 app.use(ElementPlus, {
     locale: appStore.Language === 'zh' ? zhCn : en

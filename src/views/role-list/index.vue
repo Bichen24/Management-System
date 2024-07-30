@@ -37,7 +37,12 @@ watch(
                 width="260"
                 #default="{ row }"
             >
-                <el-button type="primary" size="mini" @click="showPermission(row)">
+                <el-button
+                    type="primary"
+                    size="small"
+                    v-permission="['distributePermission']"
+                    @click="showPermission(row)"
+                >
                     {{ $t('msg.role.assignPermissions') }}
                 </el-button>
             </el-table-column>
