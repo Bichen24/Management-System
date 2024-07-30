@@ -46,7 +46,7 @@
                         <el-button type="primary" size="mini" @click="onShow(row._id)">{{
                             $t('msg.excel.show')
                         }}</el-button>
-                        <el-button type="info" size="mini">
+                        <el-button type="info" size="mini" @click="roleClick(row._id)">
                             {{ $t('msg.excel.showRole') }}
                         </el-button>
                         <el-button type="danger" @click="onRemoveClick(row)" size="mini">
@@ -66,14 +66,16 @@
             />
         </el-card>
         <ExportToExcel v-model="modelValue" />
+        <userRole v-model="roleValue" :userId="roleId" />
     </div>
 </template>
 
 <script setup>
 import { deleteUser, fetchUserManageData } from '@/api/user-manage'
 import { watchLanguage } from '@/utils/i18n'
-import { onActivated, ref } from 'vue'
+import { onActivated, ref, watch } from 'vue'
 import ExportToExcel from './cpns/ExportExcel.vue'
+import userRole from './cpns/role.vue'
 // import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 const userManage = ref({})
@@ -132,6 +134,21 @@ const onExportExcelClick = () => {
 const onShow = (id) => {
     router.push(`/user/info/${id}`)
 }
+//查看用户角色
+const roleValue = ref(false)
+const roleId = ref('')
+const roleClick = (id) => {
+    roleId.value = id
+    roleValue.value = true
+}
+watch(
+    () => roleValue.value,
+    (val) => {
+        if (!val) {
+            roleId.value = ''
+        }
+    }
+)
 </script>
 
 <style lang="scss" scoped>

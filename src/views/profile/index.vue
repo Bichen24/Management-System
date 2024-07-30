@@ -26,9 +26,9 @@
 import ProjectCard from './cpns/ProjectCard/index.vue'
 import Feature from './cpns/feature/index.vue'
 import Author from './cpns/author/index.vue'
-import { fetchFeatureData } from '@/api/profile'
+// import { fetchFeatureData } from '@/api/profile'
 import { ref } from 'vue'
-import { watchLanguage } from '@/utils/i18n'
+// import { watchLanguage } from '@/utils/i18n'
 const activeName = ref('feature')
 const featureData = ref([])
 

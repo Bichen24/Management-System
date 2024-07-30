@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { fetchUserInfo, login } from '@/api/sys'
 import { TOKEN } from '@/constant'
 import md5 from 'md5'
-import { getItem, removeItem, setItem } from '@/utils/storage'
+import { clearItem, getItem, removeItem, setItem } from '@/utils/storage'
 import { computed, ref } from 'vue'
 import router from '@/router'
 import { reomveTokenTimestap, setTokenTimestap } from '@/utils/loginTime'
@@ -29,11 +29,13 @@ export const useUserStore = defineStore('user', () => {
             login({
                 username,
                 password: md5(password)
-            }).then((data) => {
+            })
+                .then((data) => {
                     setItem(TOKEN, data.token)
                     setTokenTimestap()
                     resolve(data)
-                }).catch((err) => {
+                })
+                .catch((err) => {
                     reject(err)
                 })
         })
@@ -43,7 +45,9 @@ export const useUserStore = defineStore('user', () => {
         return new Promise((resolve) => {
             userInfo.value = {}
             removeItem(TOKEN)
+            removeItem('tagsView')
             reomveTokenTimestap()
+            clearItem()
             resolve()
         }).then(() => {
             router.push('/login')

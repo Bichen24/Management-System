@@ -25,3 +25,4 @@ export const fetchUserDetail = (id) => {
         method: 'get'
     })
 }
+
