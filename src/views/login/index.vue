@@ -52,7 +52,7 @@ const login = () => {
         userLogin(loginData.value)
             .then(() => {
                 loading.value = false
-                router.to('/')
+                router.push('/')
             })
             .catch((err) => {
                 console.log(err)

@@ -32,12 +32,11 @@ import { watchLanguage } from '@/utils/i18n'
 const activeName = ref('feature')
 const featureData = ref([])
 
-const getFeatureData = async () => {
-    const res = await fetchFeatureData()
-    featureData.value = res
-}
-
-watchLanguage(getFeatureData)
+// const getFeatureData = async () => {
+//     const res = await fetchFeatureData()
+//     featureData.value = res
+// }
+// watchLanguage(getFeatureData)
 </script>
 
 <style lang="scss" scoped>

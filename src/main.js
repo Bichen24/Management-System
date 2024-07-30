@@ -14,12 +14,15 @@ import { useAppStore } from './stores/appSotre'
 import installFilter from '@/filters'
 //svgIcon
 import 'virtual:svg-icons-register'
+//局部打印
+import print from 'vue3-print-nb'
 const pinia = createPinia()
 const app = createApp(App)
 installFilter(app)
 app.use(pinia)
 app.use(router)
 app.use(i18n)
+app.use(print)
 const appStore = useAppStore()
 app.use(ElementPlus, {
     locale: appStore.Language === 'zh' ? zhCn : en

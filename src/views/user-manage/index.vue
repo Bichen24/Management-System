@@ -43,7 +43,9 @@
                 </el-table-column>
                 <el-table-column :label="$t('msg.excel.action')" fixed="right" width="260">
                     <template #default="{ row }">
-                        <el-button type="primary" size="mini">{{ $t('msg.excel.show') }}</el-button>
+                        <el-button type="primary" size="mini" @click="onShow(row._id)">{{
+                            $t('msg.excel.show')
+                        }}</el-button>
                         <el-button type="info" size="mini">
                             {{ $t('msg.excel.showRole') }}
                         </el-button>
@@ -124,6 +126,11 @@ const onRemoveClick = async (row) => {
 const modelValue = ref(false)
 const onExportExcelClick = () => {
     modelValue.value = true
+}
+
+//查看用户信息
+const onShow = (id) => {
+    router.push(`/user/info/${id}`)
 }
 </script>
 

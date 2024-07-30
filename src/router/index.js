@@ -37,6 +37,7 @@ const privateRoutes = [
             {
                 path: '/user/info/:id',
                 name: 'userInfo',
+                props: true,
                 component: () => import('@/views/user-info/index.vue'),
                 meta: {
                     title: 'userInfo'
@@ -146,7 +147,6 @@ const whiteList = ['/login', '/404', '/401']
 router.beforeEach((to, from, next) => {
     const userStore = useUserStore()
     if (getItem(TOKEN)) {
-        console.log(getItem(TOKEN))
         if (getTokenOut()) {
             userStore.userExit()
         }

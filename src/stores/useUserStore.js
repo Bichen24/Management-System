@@ -29,14 +29,11 @@ export const useUserStore = defineStore('user', () => {
             login({
                 username,
                 password: md5(password)
-            })
-                .then((data) => {
+            }).then((data) => {
                     setItem(TOKEN, data.token)
                     setTokenTimestap()
-                    router.push('/')
                     resolve(data)
-                })
-                .catch((err) => {
+                }).catch((err) => {
                     reject(err)
                 })
         })
