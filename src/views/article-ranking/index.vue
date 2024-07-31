@@ -54,49 +54,54 @@ const onShowClick = (row) => {
 }
 </script>
 <template>
-    <el-card class="header">
-        <div class="dynamic-box">
-            <span class="title">{{ $t('msg.article.dynamicTitle') }}</span>
-            <el-checkbox-group v-model="selectedColumns">
-                <el-checkbox v-for="(item, index) in dynamicData" :label="item.prop" :key="index">{{
-                    item.label
-                }}</el-checkbox>
-            </el-checkbox-group>
-        </div>
-    </el-card>
-    <el-card>
-        <el-table ref="tableRef" :data="articleList" border>
-            <el-table-column
-                v-for="item in tableColumns"
-                :key="item.prop"
-                :prop="item.prop"
-                :label="item.label"
+    <div>
+        <el-card class="header">
+            <div class="dynamic-box">
+                <span class="title">{{ $t('msg.article.dynamicTitle') }}</span>
+                <el-checkbox-group v-model="selectedColumns">
+                    <el-checkbox
+                        v-for="(item, index) in dynamicData"
+                        :value="item.prop"
+                        :key="index"
+                        >{{ item.label }}</el-checkbox
+                    >
+                </el-checkbox-group>
+            </div>
+        </el-card>
+        <el-card>
+            <el-table ref="tableRef" :data="articleList" border>
+                <el-table-column
+                    v-for="item in tableColumns"
+                    :key="item.prop"
+                    :prop="item.prop"
+                    :label="item.label"
+                >
+                    <template v-if="item.prop === 'publicDate'" #default="{ row }">
+                        {{ $filters.relativeTime(row.publicDate) }}
+                    </template>
+                    <template v-else-if="item.prop === 'action'" #default="{ row }">
+                        <el-button type="primary" size="small" @click="onShowClick(row)">{{
+                            $t('msg.article.show')
+                        }}</el-button>
+                        <el-button type="danger" size="small" @click="onRemoveClick(row)">{{
+                            $t('msg.article.remove')
+                        }}</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <el-pagination
+                class="pagination"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :page-sizes="[2, 5, 10, 20]"
+                :page-size="size"
+                :current-page="page"
+                :total="total"
+                layout="prev, pager, next, jumper, total, sizes"
             >
-                <template v-if="item.prop === 'publicDate'" #default="{ row }">
-                    {{ $filters.relativeTime(row.publicDate) }}
-                </template>
-                <template v-else-if="item.prop === 'action'" #default="{ row }">
-                    <el-button type="primary" size="mini" @click="onShowClick(row)">{{
-                        $t('msg.article.show')
-                    }}</el-button>
-                    <el-button type="danger" size="mini" @click="onRemoveClick(row)">{{
-                        $t('msg.article.remove')
-                    }}</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination
-            class="pagination"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :page-sizes="[2, 5, 10, 20]"
-            :page-size="size"
-            :current-page="page"
-            :total="total"
-            layout="prev, pager, next, jumper, total, sizes"
-        >
-        </el-pagination>
-    </el-card>
+            </el-pagination>
+        </el-card>
+    </div>
 </template>
 
 <style lang="scss" scoped>

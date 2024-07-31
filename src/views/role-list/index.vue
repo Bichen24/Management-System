@@ -25,30 +25,32 @@ watch(
 </script>
 
 <template>
-    <el-card>
-        <el-table :data="allRoles" border style="width: 100%">
-            <el-table-column :label="$t('msg.role.index')" type="index" width="120">
-            </el-table-column>
-            <el-table-column :label="$t('msg.role.name')" prop="title"> </el-table-column>
-            <el-table-column :label="$t('msg.role.desc')" prop="describe"> </el-table-column>
-            <el-table-column
-                :label="$t('msg.role.action')"
-                prop="action"
-                width="260"
-                #default="{ row }"
-            >
-                <el-button
-                    type="primary"
-                    size="small"
-                    v-permission="['distributePermission']"
-                    @click="showPermission(row)"
+    <div>
+        <el-card>
+            <el-table :data="allRoles" border style="width: 100%">
+                <el-table-column :label="$t('msg.role.index')" type="index" width="120">
+                </el-table-column>
+                <el-table-column :label="$t('msg.role.name')" prop="title"> </el-table-column>
+                <el-table-column :label="$t('msg.role.desc')" prop="describe"> </el-table-column>
+                <el-table-column
+                    :label="$t('msg.role.action')"
+                    prop="action"
+                    width="260"
+                    #default="{ row }"
                 >
-                    {{ $t('msg.role.assignPermissions') }}
-                </el-button>
-            </el-table-column>
-        </el-table>
-    </el-card>
-    <permission v-model="modelValue" :roleId="roleId" />
+                    <el-button
+                        type="primary"
+                        size="small"
+                        v-permission="['distributePermission']"
+                        @click="showPermission(row)"
+                    >
+                        {{ $t('msg.role.assignPermissions') }}
+                    </el-button>
+                </el-table-column>
+            </el-table>
+        </el-card>
+        <permission v-model="modelValue" :roleId="roleId" />
+    </div>
 </template>
 
 <style lang="scss" scoped></style>

@@ -1,5 +1,7 @@
 <template>
-    <upload-excel :on-success="onSuccess"></upload-excel>
+    <div>
+        <upload-excel :on-success="onSuccess"></upload-excel>
+    </div>
 </template>
 
 <script setup>

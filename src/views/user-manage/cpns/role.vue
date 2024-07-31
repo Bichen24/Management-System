@@ -21,7 +21,6 @@ const userRoleTitleList = ref([])
 const getRoleList = async () => {
     const res = await fetchRoleList()
     allRoleList.value = res
-    console.log(allRoleList.value)
 }
 watchLanguage(getRoleList)
 

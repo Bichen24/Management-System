@@ -30,7 +30,7 @@ import Editor from './cpns/Editor/index.vue'
 import Markdown from './cpns/Markdown/index.vue'
 import { onMounted, ref } from 'vue'
 const props = defineProps({
-    id: { type: String, required: true }
+    id: { type: String }
 })
 const activeName = ref('markdown')
 const articleDetail = ref({})
