@@ -1,5 +1,3 @@
-
-
 export default {
     path: '/article',
     component: () => import('@/views/layout/index.vue'),
@@ -20,7 +18,7 @@ export default {
             component: () => import('@/views/article-create/index.vue'),
             meta: {
                 title: 'articleEditor'
-            }
+            },
         }
     ]
 }

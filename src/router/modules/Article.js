@@ -1,4 +1,3 @@
-
 export default {
     path: '/article',
     component: () => import('@/views/layout/index.vue'),
@@ -19,7 +18,8 @@ export default {
             component: () => import('@/views/article-detail/index.vue'),
             meta: {
                 title: 'articleDetail'
-            }
+            },
+            props: true
         }
     ]
 }

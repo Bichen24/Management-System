@@ -1,5 +1,5 @@
 <script setup>
-import { fetchArticleList } from '@/api/article'
+import { fetchArticleList, removeArticle } from '@/api/article'
 import { watchLanguage } from '@/utils/i18n'
 import { onActivated, onMounted, ref } from 'vue'
 const articleList = ref([])
@@ -26,9 +26,33 @@ const handleCurrentChange = (currentPage) => {
 }
 import { selectedColumns, tableColumns, dynamicData } from './dynamic'
 import { initSortable, tableRef } from './sortable'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 onMounted(() => {
     initSortable(articleList, getArticleData)
 })
+const i18n = useI18n()
+const onRemoveClick = (row) => {
+    ElMessageBox.confirm(
+        i18n.t('msg.article.dialogTitle1') + row.title + i18n.t('msg.article.dialogTitle2'),
+        {
+            type: 'warning'
+        }
+    ).then(async () => {
+        try {
+            await removeArticle(row._id)
+            ElMessage.success(i18n.t('msg.article.removeSuccess'))
+            getArticleData()
+        } catch (err) {
+            ElMessage.warning(i18n.t('msg.article.removeFail'))
+        }
+    })
+}
+const router = useRouter()
+const onShowClick = (row) => {
+    router.push(`/article/${row._id}`)
+}
 </script>
 <template>
     <el-card class="header">
