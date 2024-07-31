@@ -1,8 +1,6 @@
-import layout from '@/views/layout/index.vue'
-
 export default {
     path: '/user',
-    component: layout,
+    component: () => import('@/views/layout/index.vue'),
     redirect: '/user/manage',
     name: 'userManage',
     meta: {

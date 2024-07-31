@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import layout from '@/views/layout/index.vue'
 
 import ArticleCreaterRouter from './modules/ArticleCreate'
 import ArticleRouter from './modules/Article'
@@ -25,7 +24,7 @@ export const publicRoutes = [
         path: '/',
         name: 'layout',
         redirect: '/profile',
-        component: layout,
+        component: () => import('@/views/layout/index.vue'),
         children: [
             {
                 path: '/profile',
