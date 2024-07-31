@@ -7,3 +7,11 @@ export const fetchArticleList = (data) => {
         params: data
     })
 }
+// 更新排名
+export const updateRanking = (data) => {
+    return request({
+        url: '/article/sort',
+        method: 'POST',
+        data
+    })
+}

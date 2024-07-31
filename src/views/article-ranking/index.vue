@@ -1,7 +1,7 @@
 <script setup>
 import { fetchArticleList } from '@/api/article'
 import { watchLanguage } from '@/utils/i18n'
-import { onActivated, ref } from 'vue'
+import { onActivated, onMounted, ref } from 'vue'
 const articleList = ref([])
 const total = ref(0)
 const page = ref(1)
@@ -25,6 +25,10 @@ const handleCurrentChange = (currentPage) => {
     getArticleData()
 }
 import { selectedColumns, tableColumns, dynamicData } from './dynamic'
+import { initSortable, tableRef } from './sortable'
+onMounted(() => {
+    initSortable(articleList, getArticleData)
+})
 </script>
 <template>
     <el-card class="header">
@@ -95,5 +99,10 @@ import { selectedColumns, tableColumns, dynamicData } from './dynamic'
         margin-top: 20px;
         text-align: center;
     }
+}
+:deep(.sortable-ghost) {
+    background-color: var(--primary-color);
+    color: #fff;
+    opacity: 0.6;
 }
 </style>
