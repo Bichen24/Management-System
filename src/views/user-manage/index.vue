@@ -86,7 +86,6 @@ import { watchLanguage } from '@/utils/i18n'
 import { onActivated, ref, watch } from 'vue'
 import ExportToExcel from './cpns/ExportExcel.vue'
 import userRole from './cpns/role.vue'
-// import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 const userManage = ref({})
 const total = ref(0)
@@ -126,7 +125,6 @@ const router = useRouter()
 const onImportExcelClick = () => {
     router.push('/user/import')
 }
-// const i18n = useI18n()
 //删除员工
 const onRemoveClick = async (row) => {
     console.log(row)

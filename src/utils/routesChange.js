@@ -60,7 +60,6 @@ const getMenuList = (Routes) => {
             return true
         }
     })
-    console.log(menuList)
     return menuList
 }
 

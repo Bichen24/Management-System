@@ -1,11 +1,10 @@
 <script setup>
-const props = defineProps({
+defineProps({
     featureData: {
         type: Array,
         required: true
     }
 })
-console.log(props.featureData)
 import { ref } from 'vue'
 
 const activeNames = ref([])

@@ -32,7 +32,6 @@ const onEditClick = () => {
 const getArticleData = async () => {
     const res = await fetchArticleDetail(props.id)
     detail.value = res
-    console.log(detail.value)
 }
 watchLanguage(getArticleData)
 </script>

@@ -10,7 +10,6 @@ const getArticleData = async () => {
     const res = await fetchArticleList({ page: page.value, size: size.value })
     articleList.value = res.list
     total.value = res.total
-    console.log(articleList.value, total.value)
 }
 watchLanguage(getArticleData)
 onActivated(() => {

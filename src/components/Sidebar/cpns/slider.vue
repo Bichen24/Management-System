@@ -1,14 +1,13 @@
 <script setup>
 import sliderItem from './slider-item.vue'
 import { ref } from 'vue'
-const props = defineProps({
+defineProps({
     data: {
         type: Array,
         required: true
     }
 })
 const activeIndex = ref('/profile')
-console.log(props.data)
 </script>
 
 <template>

@@ -15,7 +15,6 @@ export const usePermissionStore = defineStore('permission', () => {
      * 根据权限筛选路由
      */
     const filterRoutes = (menus) => {
-        console.log(menus)
         const routes = []
         // 路由权限匹配
         menus.forEach((key) => {

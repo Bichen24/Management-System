@@ -45,7 +45,6 @@ watch(
         tableColumns.value = dynamicData.value.filter((item) =>
             selectedColumns.value.includes(item.prop)
         )
-        console.log(tableColumns.value)
     },
     {
         immediate: true
