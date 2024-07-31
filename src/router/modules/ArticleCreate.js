@@ -19,6 +19,7 @@ export default {
             meta: {
                 title: 'articleEditor'
             },
+            props: true
         }
     ]
 }

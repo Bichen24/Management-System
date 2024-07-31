@@ -20,11 +20,15 @@
 import { fetchArticleDetail } from '@/api/article'
 import { watchLanguage } from '@/utils/i18n'
 import { ref } from 'vue'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const props = defineProps({
     id: { type: String, required: true }
 })
 const detail = ref({})
+const onEditClick = () => {
+    router.push(`/article/editor/${props.id}`)
+}
 const getArticleData = async () => {
     const res = await fetchArticleDetail(props.id)
     detail.value = res
